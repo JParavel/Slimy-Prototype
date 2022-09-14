@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     //Player Jumping
     public float gravityScale;
     public float fallingGravityScale;
+    public float stickness;
     private LinkedList<Collision2D> groundCollisions;
 
     //Particle System
@@ -35,6 +36,13 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.gravityScale = gravityScale;
         }
+
+        if (Grounded())
+        {
+            //Está en veremos :C
+            rb.gravityScale = fallingGravityScale / stickness;
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D other)

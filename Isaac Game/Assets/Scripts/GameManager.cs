@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private GameObject getObjectInCursor()
+    public static GameObject getObjectInCursor()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);

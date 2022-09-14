@@ -23,6 +23,18 @@ public class Player : MonoBehaviour
             
         }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject clickedObject = GameManager.getObjectInCursor();
+            if (clickedObject != gameObject)
+            {
+                GameObject slime = World.instance.GetEntity("Slime");
+                Instantiate(slime, transform.position, Quaternion.identity);
+
+
+            }
+        }
+
     }
 
     public bool setSize(int size){
