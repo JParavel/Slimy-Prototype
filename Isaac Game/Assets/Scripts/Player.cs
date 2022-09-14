@@ -6,7 +6,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private int size = 1;
-    private Vector2 face;
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.W))
@@ -24,7 +23,6 @@ public class Player : MonoBehaviour
             
         }
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, face * 2);
     }
 
     public bool setSize(int size){
@@ -48,14 +46,6 @@ public class Player : MonoBehaviour
 
     public bool DecreaseSize(int decrement){
         return setSize(size-decrement);
-    }
-
-    public void setFace(Vector2 face){
-        this.face = face;
-    }
-
-    public Vector2 getFace(){
-        return face;
     }
 
 }
