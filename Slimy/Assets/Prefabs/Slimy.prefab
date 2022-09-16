@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5412965657648287870}
   - component: {fileID: 5412965657648287871}
   - component: {fileID: 5412965657648288129}
+  - component: {fileID: 5338629949895300426}
   m_Layer: 3
   m_Name: Slimy
   m_TagString: Slimy
@@ -34,7 +35,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5354787277755459977}
+  - {fileID: 2288645715609027999}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -163,7 +164,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 42038
+  m_InstanceId: -1278
 --- !u!114 &5412965657648287871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +196,20 @@ MonoBehaviour:
   size: 1
   launchJumpScale: 1
   selfIgnoreTime: 0.2
---- !u!1001 &6596195597118806421
+--- !u!114 &5338629949895300426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5412965657648287864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 498356ad7001617449e23ebc5d13c6f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eye: {fileID: 203571532536179632}
+--- !u!1001 &1015708488002614659
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -252,8 +266,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cd992d5ffa94be42a4e82d2b0bdcde7, type: 3}
---- !u!4 &5354787277755459977 stripped
+--- !u!1 &203571532536179632 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 922039764999069235, guid: 3cd992d5ffa94be42a4e82d2b0bdcde7, type: 3}
+  m_PrefabInstance: {fileID: 1015708488002614659}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2288645715609027999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1286448782407774236, guid: 3cd992d5ffa94be42a4e82d2b0bdcde7, type: 3}
-  m_PrefabInstance: {fileID: 6596195597118806421}
+  m_PrefabInstance: {fileID: 1015708488002614659}
   m_PrefabAsset: {fileID: 0}

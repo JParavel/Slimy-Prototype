@@ -16,11 +16,13 @@ public class Slimy : MonoBehaviour
     public GameObject slimePrefab { get; private set; }
     public bool selected { get; private set; }
     public SlimyController controller { get; private set; }
+    public EyeController eyeController { get; private set;}
     public Rigidbody2D rb { get; private set; }
 
     private void Awake() //init
     {
         controller = GetComponent<SlimyController>();
+        eyeController = GetComponent<EyeController>();
         rb = GetComponent<Rigidbody2D>();
         SetSize(size);
         selected = false;
@@ -70,6 +72,7 @@ public class Slimy : MonoBehaviour
         this.size = size;
         float length = Mathf.Sqrt(size);
         transform.localScale = Vector3.one * length;
+        eyeController.UpdateScale(1/length);
     }
 
     public int GetSize()
