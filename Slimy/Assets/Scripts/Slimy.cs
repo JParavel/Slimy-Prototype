@@ -24,13 +24,13 @@ public class Slimy : MonoBehaviour
         controller = GetComponent<SlimyController>();
         eyeController = GetComponent<EyeController>();
         rb = GetComponent<Rigidbody2D>();
-        SetSize(size);
         selected = false;
     }
 
     private void Start()
     {
         slimePrefab = GameManager.getEntity("Slimy");
+        SetSize(size);
     }
 
     private void Update() //Non-Physics updates
@@ -70,14 +70,17 @@ public class Slimy : MonoBehaviour
     {
         if (size < 1) return;
         this.size = size;
-        float length = Mathf.Sqrt(size);
-        transform.localScale = Vector3.one * length;
-        eyeController.UpdateScale(1/length);
+        transform.localScale = Vector3.one * GetLength();
+        eyeController.SetEyes(size);
     }
 
     public int GetSize()
     {
         return size;
+    }
+
+    public float GetLength(){
+        return Mathf.Sqrt(size);
     }
 
     //Slime Launch

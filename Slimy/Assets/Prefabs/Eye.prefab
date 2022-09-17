@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eyeball: {fileID: 2678340219018243585}
   maxFollowDistance: 6
-  displacementRadius: 0.15
+  displacementRadius: 0.1
   followSmoothness: 10
 --- !u!1 &2678340219018243585
 GameObject:

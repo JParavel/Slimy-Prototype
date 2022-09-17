@@ -17,7 +17,7 @@ public class EyeFollow : MonoBehaviour
         if (distance.magnitude <= maxFollowDistance)
         {
             Vector3 direction = distance.normalized;
-            Vector3 newPosition = transform.position + direction * displacementRadius * distance.magnitude / maxFollowDistance;
+            Vector3 newPosition = transform.position + direction * displacementRadius;
             eyeball.transform.position = Vector3.Lerp(eyeball.transform.position, newPosition, followSmoothness * Time.deltaTime);
         }
         else
