@@ -4,57 +4,54 @@ using UnityEngine;
 
 public class EyeController : MonoBehaviour
 {
+    public float eyeGap;
     [SerializeField] private GameObject eyePrefab;
     [SerializeField] private Transform eyeHolder;
-    public float gapProportion;
-    public List<GameObject> currentEyes { get; private set; }
-    public Slimy slimy { get; private set; }
+    [SerializeField] private List<Eye> eyes;
 
     private void Awake()
     {
-        currentEyes = new List<GameObject>();
-        slimy = GetComponent<Slimy>();
+        eyes = new List<Eye>();
     }
-
-    public void ScaleEyes()
-    {
-        float length = Mathf.Sqrt(slimy.GetSize());
-        foreach (GameObject eye in currentEyes)
-        {
-            eye.transform.localScale = Vector3.one * 1 / length;
-        }
-    }
-
 
     public void CreateEyes(int amount)
     {
-        if (amount == 0) return;
+        if (amount <= 0) return; // You need to create some eyes
+
+        int eyeCount = eyes.Count + amount;
+
         for (int i = 0; i < amount; i++)
         {
-            GameObject eyeInstance = Instantiate(eyePrefab, transform.position, transform.rotation, eyeHolder);
-            currentEyes.Add(eyeInstance);
+            GameObject eyeInstance = Instantiate(eyePrefab, eyeHolder, false);
+            Eye eye = eyeInstance.GetComponent<Eye>();
+            Vector3 targetPosition = GetTargetPosition(eyes.Count, eyeCount);
+            eye.transform.localPosition = targetPosition;
+            eye.transform.localScale = Vector3.zero;
+            eyes.Add(eye);
         }
+
         SortEyes();
-        ScaleEyes();
+        ScaleEyes(eyes.Count);
     }
 
     public void DeleteEyes(int amount)
     {
-        if (amount == 0) return;
-        int eyeCount = currentEyes.Count;
+        if (amount <= 0) return; //You need to delete some eyes
+
         for (int i = 0; i < amount; i++)
         {
-            GameObject eyeInstance = currentEyes[eyeCount - i - 1];
-            currentEyes.Remove(eyeInstance);
-            Destroy(eyeInstance);
+            Eye eye = eyes[eyes.Count - 1];
+            eyes.Remove(eye);
+            Destroy(eye.gameObject);
         }
+
         SortEyes();
-        ScaleEyes();
+        ScaleEyes(eyes.Count);
     }
 
     public void SetEyes(int amount)
     {
-        int difference = currentEyes.Count - amount;
+        int difference = eyes.Count - amount;
         if (difference > 0)
         {
             DeleteEyes(difference);
@@ -65,26 +62,33 @@ public class EyeController : MonoBehaviour
         }
     }
 
+    public void ScaleEyes(int eyeCount)
+    {
+        float length = Mathf.Sqrt(eyeCount);
+        foreach (Eye eye in eyes)
+        {
+            //¿Animate this?
+            eye.targetScale = 1 / length;
+        }
+    }
+
     public void SortEyes()
     {
-        int eyeCount = currentEyes.Count;
-        if (eyeCount == 1)
+        for (int i = 0; i < eyes.Count; i++)
         {
-            currentEyes[0].transform.position = transform.position;
-            return;
+            Vector3 targetPosition = GetTargetPosition(i, eyes.Count);
+            eyes[i].targetPosition = targetPosition;
         }
+    }
 
-        int i = 0;
-        foreach (GameObject eye in currentEyes)
-        {
-            float x = gapProportion/2 * Mathf.Sin(2 * Mathf.PI * i / eyeCount + Mathf.PI);
-            float y = gapProportion/2 * Mathf.Cos(2 * Mathf.PI * i / eyeCount + Mathf.PI);
-            Vector3 position = new Vector3(x, y, 0f);
-            eye.transform.localPosition = position;
-            i++;
-        }
+    public Vector3 GetTargetPosition(int eyeIndex, int eyeCount)
+    {
+        if (eyeCount == 1) return Vector3.zero;
 
-        ScaleEyes();
+        float angle = Mathf.PI / (2 * eyeCount) * (4 * eyeIndex + 2 - eyeCount);
+        float x = eyeGap / 2 * Mathf.Cos(angle);
+        float y = eyeGap / 2 * Mathf.Sin(angle);
+        return new Vector3(x, y, 0f);
     }
 
 }
