@@ -43,6 +43,7 @@ public class Slimy : MonoBehaviour
             if (objectAtCursor == gameObject)
             {
                 selected = true;
+                cameraZoom.target = gameObject;
             }
             else if (objectAtCursor != null && objectAtCursor.CompareTag("Slimy"))
             {
