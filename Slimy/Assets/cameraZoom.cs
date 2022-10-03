@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class cameraZoom : MonoBehaviour
 {
-    public static GameObject target;
-    public Vector3 velocity;
-    public float smoothTime;
+    [SerializeField] private Camera cam;
+    private Vector3 dragOrigin;
+    private float zoom = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -17,11 +17,28 @@ public class cameraZoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0)) return;
-        if(target == null) return;
-        
-        Vector3 targetPosition = new Vector3(target.transform.position.x, target.transform.position.y, -10);
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
-        
+        PanCamera();
+    }
+
+    private void PanCamera()
+    {
+
+        if(Input.GetMouseButtonDown(1))
+            dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
+
+        if(Input.GetMouseButton(1))
+        {
+            Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
+            cam.transform.position += difference;
+        }
+
+        if(cam.orthographic)
+        {
+            cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * zoom;
+        }
+        else 
+        {
+            cam.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * zoom;
+        }
     }
 }
