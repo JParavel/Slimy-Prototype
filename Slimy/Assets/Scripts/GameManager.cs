@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     [Header("Input Settings")]
     [SerializeField] private float maxDragDistance;
     [SerializeField] private float minDragDistance;
-    [SerializeField] private float dragTime;
     private Vector3 clickPosition;
+    private Vector3 drag;
     private float clickTime;
     private bool isDragging;
 
@@ -58,8 +58,11 @@ public class GameManager : MonoBehaviour
             //Se incrementa el tiempo del click por la duración del fotograma
             clickTime += Time.deltaTime;
 
-            //Si el click dura lo suficiente, sabemos que es una acción de arrastre
-            if (!isDragging && clickTime >= dragTime)
+            //Si el mouse se mueve lo suficiente, sabemos que es una acción de arrastre
+
+            drag = GetMousePosition() - clickPosition;
+
+            if (!isDragging && drag.magnitude >= minDragDistance)
             {
                 isDragging = true;
             }
@@ -94,12 +97,7 @@ public class GameManager : MonoBehaviour
         Vector3 drag = GameManager.GetMousePosition() - clickPosition;
         float distance = drag.magnitude;
 
-        //Mantener el drag entre los limites
-        if (distance < minDragDistance)
-        {
-            distance = minDragDistance;
-        }
-        else if (distance > maxDragDistance)
+        if (distance > maxDragDistance)
         {
             distance = maxDragDistance;
         }
