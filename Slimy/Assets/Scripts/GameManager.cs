@@ -14,9 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float maxDragDistance;
     [SerializeField] private float minDragDistance;
     private Vector3 clickPosition;
-    private Vector3 drag;
+    private static Vector3 drag;
     private float clickTime;
-    private bool isDragging;
+    private static bool dragging;
 
     //Manager State
     private static Slimy selectedSlimy;
@@ -62,9 +62,9 @@ public class GameManager : MonoBehaviour
 
             drag = GetMousePosition() - clickPosition;
 
-            if (!isDragging && drag.magnitude >= minDragDistance)
+            if (!dragging && drag.magnitude >= minDragDistance)
             {
-                isDragging = true;
+                dragging = true;
             }
         }
 
@@ -72,10 +72,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             //Si fue una accion de arrastre
-            if (isDragging)
+            if (dragging)
             {
                 //Salimos de la accion de arrastre
-                isDragging = false;
+                dragging = false;
                 DragEvent();
             }
             else
@@ -197,5 +197,17 @@ public class GameManager : MonoBehaviour
     public static Slimy GetHoldedSlimy()
     {
         return holdedSlimy;
+    }
+
+    /// <returns>El <see cref="Vector3"/> que representa la distancia que se ha movido el mouse mientras 
+    /// que se mantiene presionado el botón principal del mouse</returns>
+    public static Vector3 GetDrag(){
+        return drag;
+    }
+
+    /// <returns> True cuando el <see cref="GameManager"/> determina que se está ejecutando una 
+    /// accion de arrastre</returns>
+    public static bool IsDragging(){
+        return dragging;
     }
 }
