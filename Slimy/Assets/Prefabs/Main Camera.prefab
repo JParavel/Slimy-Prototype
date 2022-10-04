@@ -131,4 +131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28c0d75e01c862649bae162cc0ed33b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zoomSensitivity: 400
+  minZoom: 3
+  maxZoom: 10
+  min: {x: -4.5, y: -4.01}
+  max: {x: 28.67, y: 16.01}
   smoothTime: 0.2
