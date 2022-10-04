@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float minDragDistance;
     private Vector3 clickPosition;
     private static Vector3 drag;
-    private float clickTime;
     private static bool dragging;
 
     //Manager State
@@ -45,9 +44,6 @@ public class GameManager : MonoBehaviour
                 selectedSlimy = holdedSlimy;
             }
 
-            //Establecemos el tiempo de click en 0
-            clickTime = 0;
-
             //Establecemos la posición del click
             clickPosition = GetMousePosition();
         }
@@ -55,8 +51,6 @@ public class GameManager : MonoBehaviour
         //Al mantener el click
         if (Input.GetMouseButton(0))
         {
-            //Se incrementa el tiempo del click por la duración del fotograma
-            clickTime += Time.deltaTime;
 
             //Si el mouse se mueve lo suficiente, sabemos que es una acción de arrastre
 
@@ -151,7 +145,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// La posición del mouse a modo de coordenadas (X, Y, Z) en el plano Z = 0 de la escena
     /// </summary>
-    /// <returns>Un <see cref="Vector3"/> que representa las coordenadas en el plano Z del mouse. </returns>
+    /// <returns>Un <see cref="Vector3"/> que representa las coordenadas del mouse em el plano Z = 0. </returns>
     public static Vector3 GetMousePosition()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
