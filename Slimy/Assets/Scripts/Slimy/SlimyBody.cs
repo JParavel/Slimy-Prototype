@@ -5,7 +5,7 @@ using UnityEngine;
 public class SlimyBody : MonoBehaviour
 {
     [SerializeField] private Slimy slimy;
-    public float smoothTime;
+    [SerializeField] private float smoothTime;
 
     private Vector3 targetScale;
     private Vector3 velocity;

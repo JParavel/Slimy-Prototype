@@ -139,7 +139,7 @@ MonoBehaviour:
   - {x: 0.52734375, y: -0.52734375, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 49750
+  m_InstanceId: 41950
 --- !u!114 &8226278788838828889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9bf00bd4229a14694f6bfb092bfdd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slimyPrefab: {fileID: 5412965657648287864}
   body: {fileID: 8226278788838828889}
   eyeHolder: {fileID: 1670663095783785472}
   size: 1
