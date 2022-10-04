@@ -9,14 +9,14 @@ public class Slimy : MonoBehaviour
     [SerializeField] private EyeHolder eyeHolder;
     [Header("Properties")]
     [SerializeField] private int size;
-    
+
     [Header("Merge System")]
-    public float selfIgnoreTime;
+    [SerializeField] private float selfIgnoreTime;
 
     //Private Variables
-    public GameObject slimePrefab { get; private set; }
-    public Rigidbody2D rb { get; private set; }
+    private Rigidbody2D rb;
     private SlimyController controller;
+    private float weight;
 
     private void Awake() //init
     {
@@ -26,31 +26,16 @@ public class Slimy : MonoBehaviour
 
     private void Start()
     {
-        slimePrefab = GameManager.getEntity("Slimy");
         SetSize(size);
-    }
-
-    public SlimyController GetController()
-    {
-        return controller;
+        weight = Random.value;
     }
 
     public void SetSize(int size)
     {
         if (size < 1) return;
         this.size = size;
-        body.SetTargetScale(GetLength());
+        body.SetTargetScale(Mathf.Sqrt(size));
         eyeHolder.SetEyeCount(size);
-    }
-
-    public int GetSize()
-    {
-        return size;
-    }
-
-    public float GetLength()
-    {
-        return Mathf.Sqrt(size);
     }
 
     //Slime Launch
@@ -58,22 +43,12 @@ public class Slimy : MonoBehaviour
     {
         if (size == 1) return;
 
-        GameObject instance = Instantiate(slimePrefab, transform.position, transform.rotation);
+        GameObject instance = Instantiate(GameManager.GetEntity("Slimy"), transform.position, transform.rotation);
         Slimy slimy = instance.GetComponent<Slimy>();
         StartCoroutine(IgnoreCollider(slimy, selfIgnoreTime));
         slimy.controller.Jump(direction.normalized, 1);
 
         SetSize(size - 1);
-    }
-
-    //Slime Merging
-    public void Merge(Slimy other)
-    {
-        SetSize(size + other.size);
-        if (GameManager.currentSlimy == other){
-            GameManager.currentSlimy = this;
-        } 
-        Destroy(other.gameObject);
     }
 
     //This is used to ignore a collider for given seconds
@@ -86,18 +61,20 @@ public class Slimy : MonoBehaviour
         Physics2D.IgnoreCollision(body.GetComponent<BoxCollider2D>(), collider, false);
     }
 
-        private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Slimy"))
-        {
-            Slimy otherSlimy = other.gameObject.GetComponent<Slimy>();
-            Rigidbody2D otherRb = otherSlimy.rb;
-
-            if (rb.velocity.magnitude < otherRb.velocity.magnitude)
-            {
-                Merge(otherSlimy);
-            }
-        }
+        if (!other.gameObject.CompareTag("Slimy")) return;
+        MergeSystem.TryMerge(this);
     }
 
+    //Getters
+    public int GetSize()
+    {
+        return size;
+    }
+
+    public SlimyController GetController()
+    {
+        return controller;
+    }
 }
