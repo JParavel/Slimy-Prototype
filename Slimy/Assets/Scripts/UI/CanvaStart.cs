@@ -9,7 +9,7 @@ public class CanvaStart : MonoBehaviour
     public void Play()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Nivel 1");
     }
 
     public void Resume()
