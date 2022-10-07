@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour
 
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 
-        targetZoom = targetZoom - scrollWheel * zoomSensitivity * Time.deltaTime;
+        targetZoom = targetZoom - scrollWheel * zoomSensitivity;
         targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
         Camera.main.orthographicSize = Mathf.SmoothDamp(Camera.main.orthographicSize, targetZoom, ref sizeVelocity, smoothTime);
 

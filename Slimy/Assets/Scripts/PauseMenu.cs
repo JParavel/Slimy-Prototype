@@ -41,6 +41,6 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void start() {
-        SceneManager.LoadScene("Luigi's")   ;
+        SceneManager.LoadScene("Luigi's");
     }
 }
