@@ -48,7 +48,7 @@ MonoBehaviour:
   entities:
   - {fileID: 5412965657648287864, guid: d45462e3f5b0213468d6bacfc214aa94, type: 3}
   maxDragDistance: 2
-  minDragDistance: 0.1
+  minDragDistance: 0.4
 --- !u!114 &3400570225821081586
 MonoBehaviour:
   m_ObjectHideFlags: 0
